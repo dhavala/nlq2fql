@@ -1,0 +1,22 @@
+{
+  "version": 0.1,
+  "templateName":"ContentModel",
+  "olap":"spark-sql",
+  "result": {"name":"x1","type":"table"},
+  "query": {
+    "queryType": "groupBy",
+    "dataSource": "FunnelSummaryTable",
+    "granularity": "day",
+    "filter": {
+      "type": "and",
+      "fields": [
+      { "type": "selector", "dimension": "action_1", "value": "'search'" },
+      { "type": "selector", "dimension": "action_2", "value": "'download'" }
+    ]
+  },
+  "aggregations": [
+    { "type": "list", "name": "identifier", "fieldName": "content" },
+    { "type": "list", "name": "device", "fieldName": "device" }
+  ]
+}
+}

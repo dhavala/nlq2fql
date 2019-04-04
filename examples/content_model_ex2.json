@@ -1,0 +1,54 @@
+{
+  "version": 0.1,
+  "templateName":"ContentModel",
+  "olap":"spark-sql",
+  "result": {"name":"x1","type":"table"},
+  "ln":"cypher",
+  "query": {
+    "queryType": "groupBy",
+    "dataSource": "sample_datasource",
+    "granularity": "day",
+    "dimensions": ["country", "device"],
+    "limitSpec": { "type": "default", "limit": 5000, "columns": ["country", "data_transfer"] },
+    "filter": {
+      "type": "and",
+      "fields": [
+      { "type": "selector", "dimension": "carrier", "value": "AT&T" },
+      { "type": "or", 
+        "fields": [
+          { "type": "selector", "dimension": "make", "value": "Apple" },
+          { "type": "selector", "dimension": "make", "value": "Samsung" }
+        ]
+      }
+    ]
+  },
+  "aggregations": [
+    { "type": "longSum", "name": "total_usage", "fieldName": "user_count" },
+    { "type": "doubleSum", "name": "data_transfer", "fieldName": "data_transfer" }
+  ],
+  "postAggregations": [
+    { "type": "arithmetic",
+      "name": "avg_usage",
+      "fn": "/",
+      "fields": [
+        { "type": "fieldAccess", "fieldName": "data_transfer" },
+        { "type": "fieldAccess", "fieldName": "total_usage" }
+      ]
+    },
+    { "type": "arithmetic",
+      "name": "diff_usage",
+      "fn": "-",
+      "fields": [
+        { "type": "fieldAccess", "fieldName": "data_transfer" },
+        { "type": "fieldAccess", "fieldName": "total_usage" }
+      ]
+    }
+  ],
+  "intervals": [ "2012-01-01T00:00:00.000/2012-01-03T00:00:00.000" ],
+  "having": {
+    "type": "greaterThan",
+    "aggregation": "total_usage",
+    "value": 100
+  }
+}
+}

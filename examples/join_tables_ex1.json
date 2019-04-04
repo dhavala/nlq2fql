@@ -1,0 +1,13 @@
+{
+  "version": 0.1,
+  "templateName":"NA",
+  "olap":"spark-sql",
+  "result": {"name":"x3","type":"table"},
+  "query": {
+    "queryType": "join",
+    "left": "x1",
+    "right": "x2",
+    "on":["identifier"],
+    "type":"inner"
+}
+}

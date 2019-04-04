@@ -1,0 +1,26 @@
+{
+  "version": 0.1,
+  "templateName":"ContentModel",
+  "olap":"spark-sql",
+  "result": {"name":"x1","type":"table"},
+  "query": {
+    "queryType": "groupBy",
+    "dataSource": "ContentTable",
+    "granularity": "day",
+    "filter": {
+      "type": "and",
+      "fields": [
+      { "type": "selector", "dimension": "contentType", "value": "'Resource'" },
+      { "type": "or", 
+        "fields": [
+          { "type": "selector", "dimension": "board", "value": "'CBSE'" },
+          { "type": "selector", "dimension": "subject", "value": "'English'" }
+        ]
+      }
+    ]
+  },
+  "aggregations": [
+    { "type": "list", "name": "identifier", "fieldName": "identifier" }
+  ]
+}
+}

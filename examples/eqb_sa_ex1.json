@@ -1,0 +1,22 @@
+{
+  "version": 0.1,
+  "templateName":"ContentModel",
+  "olap":"spark-sql",
+  "result": {"name":"x1","type":"table"},
+  "ln":"sql",
+  "query": {
+    "queryType": "groupBy",
+    "dataSource": "EQB",
+    "granularity": "day",
+    "filter": {
+      "type": "and",
+      "fields": [
+      { "type": "selector", "dimension": "marks", "value": "'1'" },
+      { "type": "selector", "dimension": "blooms", "value": "'recall'" }
+    ]
+  },
+  "aggregations": [
+    { "type": "list", "name": "qid", "fieldName": "qid" }
+  ]
+}
+}

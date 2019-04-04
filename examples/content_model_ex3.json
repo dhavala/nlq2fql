@@ -1,0 +1,16 @@
+{
+  "version": 0.1,
+  "templateName":"ContentModel",
+  "olap":"spark-sql",
+  "result": {"name":"x1","type":"table"},
+  "query": {
+    "queryType": "groupBy",
+    "dataSource": "content_df",
+    "granularity": "day",
+  "aggregations": [
+    { "type": "longSum", "name": "total_usage", "fieldName": "user_count" },
+    { "type": "count", "name": "total_time", "fieldName": "user_time" },
+    { "type": "list", "name": "total_time", "fieldName": "user_time" }
+  ]
+}
+}
